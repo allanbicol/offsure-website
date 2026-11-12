@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { solutions, url } from '../data/site.js';
+---
+<Base title="Solutions" description="Offsure recruits accountants, property managers, developers, marketers, virtual assistants and IT support specialists who work as part of your team.">
+  <PageHero
+    title="Six kinds of people we can find for you"
+    lead="With property management, back-office support, accounting and more, we have helped businesses of all sizes streamline their operations and improve their bottom line."
+  >
+    <a class="btn" href={url('/contact')}>Book a discovery call</a>
+  </PageHero>
+
+  <section class="section">
+    <div class="container sol">
+      <nav class="sol__nav" aria-label="Solutions" data-spy>
+        {solutions.map((s) => (<a href={`#${s.id}`}>{s.title}</a>))}
+      </nav>
+      <div>
+        {solutions.map((s) => (
+          <article class="sol__item" id={s.id}>
+            <h2>{s.title}</h2>
+            <p>{s.description}</p>
+            <div class="sol__cols">
+              <div>
+                <p class="roles__label">What they can take on</p>
+                <ul class="roles__tasks">
+                  {s.bullets.map((b) => (<li>{b}</li>))}
+                </ul>
+              </div>
+              <div>
+                <p class="roles__label">Tools they know</p>
+                <ul class="chips">
+                  {s.platforms.map((p) => (<li class="chip">{p}</li>))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

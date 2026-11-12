@@ -1,0 +1,232 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import Check from '../components/Check.astro';
+import { cities, steps, solutions, pricing, links, url } from '../data/site.js';
+
+// Which marks in the recruiting vignette get shortlisted, and which one is hired.
+const shortlist = [3, 8, 13];
+const pick = 8;
+const opsList = ['Office and equipment', 'Payroll and government benefits', 'HMO and leave', 'Day-to-day administration'];
+---
+<Base>
+  <section class="hero" data-hero>
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <h1 class="hero__title" data-split="load">Offshore staff who work like they're at the next desk.</h1>
+        <p class="lead hero__lead" data-fade>
+          Offsure recruits dedicated professionals in Clark, Philippines for businesses in Australia, New Zealand and the United States. They report to you every day. We run the office behind them.
+        </p>
+        <div class="hero__actions" data-fade>
+          <a class="btn" href={url('/contact')}>Book a discovery call</a>
+          <a class="link" href={url('/how-it-works')}>See how it works</a>
+        </div>
+      </div>
+
+      <div class="globe" data-globe data-cities={JSON.stringify(cities)} aria-hidden="true">
+        <canvas></canvas>
+        <div class="globe__labels">
+          {cities.map((c) => (
+            <div class:list={['pin', c.home && 'pin--home']} data-pin={c.id}>
+              <i class="pin__dot"></i>
+              <div class="pin__label"><b>{c.name}</b><span data-pin-time></span></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="clocks" data-clocks>
+        {cities.map((c) => (
+          <button class="clock" type="button" data-city={c.id} data-tz={c.tz} aria-pressed="false" aria-label={`Show ${c.name} on the globe`}>
+            <span class="clock__city"><i class="clock__phase"></i>{c.name}, {c.country}</span>
+            <span class="clock__time" data-time>&nbsp;</span>
+            <span class="clock__meta" data-meta>{c.home ? 'Where your team works' : ' '}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section statement">
+    <div class="container statement__grid">
+      <div>
+        <h2 class="statement__title" data-split>Building the people. Building the business.</h2>
+        <p class="statement__text" data-scrub-words>
+          We start with your job description. We recruit talented professionals who become dedicated members of your team, report to you daily and help you reach your business objectives. Then we manage the office operation, so everything runs smoothly while you focus on your core business.
+        </p>
+      </div>
+      <figure class="video">
+        <button class="video__frame" type="button" data-video={links.introVideoId} aria-label="Play the video: This is Offsure">
+          <img src={`https://i.ytimg.com/vi/${links.introVideoId}/maxresdefault.jpg`} alt="" loading="lazy" width="1280" height="720" />
+          <span class="video__play"><i></i>This is Offsure</span>
+        </button>
+        <figcaption>A short introduction to Offsure. Plays from YouTube.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="process" data-process>
+    <div class="process__pin">
+      <div class="container">
+        <div class="process__head">
+          <h2 data-split>How it works</h2>
+          <a class="link" href={url('/how-it-works')}>The Offsure way in detail</a>
+        </div>
+        <ol class="process__grid">
+          {steps.map((step, i) => (
+            <li class="step" data-step>
+              <div class="step__text">
+                <span class="step__num">{i + 1}</span>
+                <h3 class="step__title">{step.title}</h3>
+                <div class="step__body"><p>{step.body}</p></div>
+              </div>
+              <div class="step__vignette" aria-hidden="true">
+                {i === 0 && (
+                  <div class="v-doc">
+                    <p class="v-doc__title">Job description</p>
+                    <dl>
+                      <div class="v-doc__row"><dt>Role</dt><dd style="--i:0">Senior bookkeeper</dd></div>
+                      <div class="v-doc__row"><dt>Hours</dt><dd style="--i:1">9 to 5, Brisbane time</dd></div>
+                      <div class="v-doc__row"><dt>Tools</dt><dd style="--i:2">Xero, Dext</dd></div>
+                      <div class="v-doc__row"><dt>Reports to</dt><dd style="--i:3">You</dd></div>
+                    </dl>
+                    <span class="v-doc__send">Sent to Offsure</span>
+                  </div>
+                )}
+                {i === 1 && (
+                  <div class="v-pool">
+                    <div class="v-pool__grid">
+                      {Array.from({ length: 18 }, (_, k) => (
+                        <span
+                          class:list={[shortlist.includes(k) && 'is-short', k === pick && 'is-pick']}
+                          style={`--i:${shortlist.indexOf(k)}`}
+                        >
+                          <Mark />
+                        </span>
+                      ))}
+                    </div>
+                    <p class="v-pool__caption">Screened, shortlisted, then <b>your hire</b></p>
+                  </div>
+                )}
+                {i === 2 && (
+                  <div class="v-chat">
+                    <span class="v-chat__stamp">Today, 9:02 am Brisbane time</span>
+                    <p class="v-chat__msg" style="--i:0"><b>Your bookkeeper in Clark</b>Morning. March accounts are reconciled. Payroll run is next.</p>
+                    <p class="v-chat__msg v-chat__msg--you" style="--i:1"><b>You</b>Great. Let's go through it at 10.</p>
+                    <p class="v-chat__msg" style="--i:2">See you then.</p>
+                  </div>
+                )}
+                {i === 3 && (
+                  <div class="v-ops">
+                    <p class="v-ops__title">Handled by Offsure</p>
+                    <ul>
+                      {opsList.map((item, k) => (<li><Check i={k} />{item}</li>))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist roles" data-roles>
+    <div class="container">
+      <div class="roles__grid">
+        <div>
+          <h2 class="roles__stem display">Looking for</h2>
+          <div class="roles__tabs" role="tablist" aria-label="Roles we recruit" aria-orientation="vertical">
+            <span class="roles__marker" aria-hidden="true"></span>
+            {solutions.map((s, i) => (
+              <button
+                class="roles__tab"
+                type="button"
+                role="tab"
+                id={`tab-${s.id}`}
+                aria-controls={`panel-${s.id}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                tabindex={i === 0 ? 0 : -1}
+              >
+                {s.role}?
+              </button>
+            ))}
+          </div>
+        </div>
+        <div class="roles__panels">
+          {solutions.map((s, i) => (
+            <div class="roles__panel" role="tabpanel" id={`panel-${s.id}`} aria-labelledby={`tab-${s.id}`} hidden={i !== 0}>
+              <h3>{s.title}</h3>
+              <p>{s.short}</p>
+              <p class="roles__label">What they can take on</p>
+              <ul class="roles__tasks">
+                {s.bullets.map((b) => (<li>{b}</li>))}
+              </ul>
+              <p class="roles__label">Tools they know</p>
+              <ul class="chips">
+                {s.platforms.map((p) => (<li class="chip">{p}</li>))}
+              </ul>
+              <a class="link roles__more" href={url(`/solutions#${s.id}`)}>More about {s.title.toLowerCase().replace('it support', 'IT support')}</a>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="roles__cta">
+        <p>Interested in building a full team to expand your business?</p>
+        <a class="btn" href={url('/contact')}>Build an Offsure team</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container pricing__grid">
+      <div class="pricing__intro">
+        <h2 data-split>Pricing with nothing hidden</h2>
+        <p class="lead">Our pricing is designed to give you the best value for money while keeping the quality you require.</p>
+        <a class="link" href={url('/pricing')}>See the pricing structure</a>
+      </div>
+      <div>
+        <p class="equation" data-equation>
+          <span class="equation__term">{pricing.parts[0]}</span>
+          <i class="equation__plus" aria-hidden="true"></i><span class="visually-hidden">plus</span>
+          <span class="equation__term">{pricing.parts[1].toLowerCase()}</span>
+        </p>
+        <p class="equation__note">That is the whole structure. Your team can be office based or work from home.</p>
+        <ul class="ticks" data-ticks>
+          {pricing.assurances.map((a, i) => (
+            <li>
+              <Check i={i} />
+              <h3>{a.title}</h3>
+              <p>{a.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container stories__grid">
+      <svg class="cup" viewBox="0 0 200 220" fill="none" aria-hidden="true">
+        <g class="cup__steam">
+          <path d="M70 92c-12-14 12-22 0-38s12-22 0-36" />
+          <path d="M100 92c-12-14 12-22 0-38s12-22 0-36" />
+          <path d="M130 92c-12-14 12-22 0-38s12-22 0-36" />
+        </g>
+        <path d="M36 112h128v40a52 52 0 0 1-52 52H88a52 52 0 0 1-52-52v-40z" fill="currentColor" />
+        <path d="M164 126h8a20 20 0 0 1 0 40h-10" stroke="currentColor" stroke-width="12" />
+        <path d="M14 212h172" stroke="currentColor" stroke-width="10" stroke-linecap="round" />
+      </svg>
+      <div class="stories__copy">
+        <h2 data-split>Take a coffee break at Offsure</h2>
+        <p class="lead">
+          Our clients have been kind enough to share their experiences with us: the quality of the work, the cost savings, and how easy it is to communicate with their team. Hear how they reached their goals.
+        </p>
+        <a class="btn btn--outline" href={links.clientStories} target="_blank" rel="noopener">Watch client stories on YouTube</a>
+      </div>
+    </div>
+  </section>
+</Base>

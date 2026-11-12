@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Mark from '../components/Mark.astro';
+import { url } from '../data/site.js';
+---
+<Base title="About" description="Offsure was founded in 2017 by Jason Rechenberg with two employees. Today its professionals in the Philippines serve clients in Australia, New Zealand and the United States.">
+  <PageHero
+    title="Stronger together since 2017"
+    lead="Offsure helps businesses achieve their goals by giving them the right resources, tools and talent."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="story">
+        <div class="story__card">
+          <p class="story__year">2017</p>
+          <div class="people" data-count aria-hidden="true">
+            <Mark /><Mark />
+          </div>
+          <p>Founder Jason Rechenberg launched Offsure with just two employees, offering IT and finance services.</p>
+        </div>
+        <div class="story__card story__card--now">
+          <p class="story__year">Today</p>
+          <div class="people" data-count aria-hidden="true">
+            {Array.from({ length: 33 }, () => <Mark />)}
+          </div>
+          <p>Talented professionals from the Philippines serve clients in Australia, New Zealand and the United States.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container split">
+      <h2 data-split>From humble beginnings</h2>
+      <div class="prose prose--large">
+        <p>From those first two employees, the company has grown rapidly and consistently, expanding its business process outsourcing and offshoring services to a wider range of businesses.</p>
+        <p>As Offsure continues to grow, it remains committed to helping businesses achieve their goals by providing the right resources, tools and talent they need to succeed.</p>
+        <p><a class="link" href={url('/talent')}>Meet the values behind our people</a></p>
+      </div>
+    </div>
+  </section>
+</Base>

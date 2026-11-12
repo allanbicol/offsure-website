@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { perks, links, contact } from '../data/site.js';
+
+// One small line icon per perk, in the same order as the perks list.
+const icons = [
+  '<path d="M8 16h20v8a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8z"/><path d="M28 18h2a4 4 0 0 1 0 8h-2"/><path class="accent" d="M13 6v5M18 5v6M23 6v5"/>',
+  '<rect x="5" y="9" width="30" height="19" rx="4"/><path d="M5 18h30M15 9v9M25 9v9"/><circle class="accent" cx="12" cy="30" r="3"/><circle class="accent" cx="28" cy="30" r="3"/>',
+  '<path d="M20 5l12 4v9c0 8-5 13-12 17-7-4-12-9-12-17V9z"/><path class="accent" d="M14 20l4 4 8-9"/>',
+  '<path d="M20 33S8 26 8 17a7 7 0 0 1 12-4.5A7 7 0 0 1 32 17c0 9-12 16-12 16z"/><path class="accent" d="M20 15v8M16 19h8"/>',
+  '<path d="M6 16l14-9 14 9zM10 16v13M17 16v13M23 16v13M30 16v13"/><path class="accent" d="M5 33h30"/>',
+  '<path d="M20 7v26M13 33h14M8 12h24"/><path class="accent" d="M8 12l-4 9a4.4 4.4 0 0 0 8 0zM32 12l-4 9a4.4 4.4 0 0 0 8 0z"/>',
+  '<circle class="accent" cx="27" cy="12" r="5"/><path d="M4 25c4-4 8-4 12 0s8 4 12 0 6-3 8-2M4 33c4-4 8-4 12 0s8 4 12 0 6-3 8-2"/>',
+  '<path d="M7 15h23a11.5 11.5 0 0 1-23 0zM18 15V5a11.5 11.5 0 0 1 12 10M30 15l4-6"/><circle class="accent" cx="13" cy="32" r="2.6"/><circle class="accent" cx="25" cy="32" r="2.6"/>',
+  '<rect x="7" y="17" width="26" height="16" rx="2"/><rect x="5" y="11" width="30" height="6" rx="2"/><path class="accent" d="M20 11v22M20 11c-3-6-9-5-8-1.500S20 11 20 11zm0 0c3-6 9-5 8-1.500S20 11 20 11z"/>',
+  '<rect x="6" y="8" width="28" height="26" rx="4"/><path d="M6 15h28M13 5v6M27 5v6"/><path class="accent" d="M14 21v8M20 21h5l-3 3.200a2.500 2.500 0 1 1-2.300 3.300"/>',
+];
+---
+<Base title="Careers" description="Find a career with Offsure in Clark, Philippines. See open roles and the perks of being an Offsure employee." cta={false}>
+  <PageHero
+    title="Find yourself a career with Offsure"
+    lead="Be part of the Offsure team and start a new journey."
+  >
+    <a class="btn" href={links.jobBoard} target="_blank" rel="noopener">See open roles</a>
+    <a class="link" href={links.resume} target="_blank" rel="noopener">Send us your resume</a>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <h2 data-split>I am Offsure</h2>
+        <p class="lead">Enjoy the perks of being an Offsure employee. Here's what we have for you.</p>
+      </div>
+      <ul class="perks">
+        {perks.map((perk, i) => (
+          <li class="perk">
+            <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[i]} />
+            <h3>{perk}</h3>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container band">
+      <div>
+        <h2 data-split>Our recent job listings</h2>
+        <p class="lead" style="margin-top:16px">Open roles are posted on our job board. No role that fits right now? Send us your resume anyway, or email <a href={`mailto:${contact.email}`}>{contact.email}</a>.</p>
+      </div>
+      <div class="band__actions">
+        <a class="btn" href={links.jobBoard} target="_blank" rel="noopener">See open roles</a>
+        <a class="btn btn--outline" href={links.resume} target="_blank" rel="noopener">Send us your resume</a>
+      </div>
+    </div>
+  </section>
+</Base>

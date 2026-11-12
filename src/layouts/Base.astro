@@ -1,0 +1,52 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '@fontsource-variable/funnel-display';
+import '@fontsource-variable/funnel-sans';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Cta from '../components/Cta.astro';
+import { url } from '../data/site.js';
+
+const {
+  title,
+  description = 'Offsure recruits dedicated offshore staff in Clark, Philippines for businesses in Australia, New Zealand and the United States. They report to you daily. We run the office.',
+  cta = true,
+} = Astro.props;
+const fullTitle = title ? `${title} | Offsure` : 'Offsure | People. Business. Together.';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+    <meta name="theme-color" content="#01415e" />
+    {import.meta.env.PUBLIC_NOINDEX === 'true' && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Safety net: if the animation script never runs, show hidden headings anyway.
+      setTimeout(function () { document.documentElement.classList.add('reveal-all'); }, 4000);
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+      {cta && <Cta />}
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/app.js';
+    </script>
+  </body>
+</html>

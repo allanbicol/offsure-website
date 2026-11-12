@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import wordmark from '../assets/brand/wordmark-light.png';
+import { nav, contact, url } from '../data/site.js';
+---
+<footer class="footer on-dark">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <Image src={wordmark} alt="Offsure" width={336} />
+        <p>People. Business. Together.</p>
+        <a class="footer__mail" href={`mailto:${contact.email}`}>{contact.email}</a>
+      </div>
+      <div>
+        <h2>Call us</h2>
+        <ul class="footer__phones">
+          {contact.phones.map((p) => (
+            <li><span>{p.place}</span> <a href={`tel:${p.tel}`}>{p.number}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2>Offices</h2>
+        {contact.offices.map((o) => (
+          <address>
+            <b>{o.place}</b>
+            {o.lines.map((line) => (<Fragment>{line}<br /></Fragment>))}
+          </address>
+        ))}
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          {nav.map((item) => (<li><a href={url(item.href)}>{item.label}</a></li>))}
+          <li><a href={url('/contact')}>Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© {new Date().getFullYear()} Offsure. All rights reserved. <a href={url('/privacy')}>Privacy policy</a></p>
+      <ul class="footer__socials">
+        {contact.socials.map((s) => (<li><a href={s.href} target="_blank" rel="noopener">{s.label}</a></li>))}
+      </ul>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Check from '../components/Check.astro';
+import { pricing, url } from '../data/site.js';
+---
+<Base title="Pricing" description="Offsure pricing: workforce cost plus reasonable fees. No exit charges or penalties, 100% transparency and flexible payments.">
+  <PageHero
+    title="Pricing with nothing hidden"
+    lead="We structure our prices to be competitive and affordable, and we offer a variety of pricing options to suit your needs."
+  >
+    <a class="btn" href={url('/contact')}>Ask for a quote</a>
+  </PageHero>
+
+  <section class="section">
+    <div class="container pricing__grid">
+      <div class="pricing__intro">
+        <h2 data-split>What the pricing structure involves</h2>
+        <p class="lead">Our pricing is designed to provide the best value for money while maintaining the quality you require.</p>
+      </div>
+      <div>
+        <p class="equation" data-equation>
+          <span class="equation__term">{pricing.parts[0]}</span>
+          <i class="equation__plus" aria-hidden="true"></i><span class="visually-hidden">plus</span>
+          <span class="equation__term">{pricing.parts[1].toLowerCase()}</span>
+        </p>
+        <ul class="ticks" data-ticks>
+          {pricing.assurances.map((a, i) => (
+            <li>
+              <Check i={i} />
+              <h3>{a.title}</h3>
+              <p>{a.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section__head">
+        <h2 data-split>You have the option</h2>
+        <p class="lead">Choose where your team works.</p>
+      </div>
+      <div class="options">
+        <div class="option">
+          <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 62V13a3 3 0 0 1 3-3h22a3 3 0 0 1 3 3v49" />
+            <path d="M42 30h13a3 3 0 0 1 3 3v29" />
+            <path d="M6 62h60" />
+            <path class="accent" d="M22 21h4M30 21h4M22 31h4M30 31h4M22 41h4M30 41h4M49 40h3M49 49h3" />
+            <path d="M24 62V52h8v10" />
+          </svg>
+          <h3>{pricing.options[0].title}</h3>
+          <p>{pricing.options[0].body}</p>
+        </div>
+        <div class="option">
+          <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 34l28-23 28 23" />
+            <path d="M15 29v33h42V29" />
+            <path class="accent" d="M24 48h24v9H24z" />
+            <path class="accent" d="M30 48V37h12v11" />
+            <path d="M6 62h60" />
+          </svg>
+          <h3>{pricing.options[1].title}</h3>
+          <p>{pricing.options[1].body}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <h2 data-split>Want to explore our services?</h2>
+      <div class="prose prose--large">
+        <p>We can help you build a team of professionals with the expertise and knowledge to deliver the specific needs of your business.</p>
+        <p>You'll have access to a global pool of talented individuals who can help you achieve your business goals.</p>
+        <p><a class="link" href={url('/solutions')}>See the roles we recruit</a></p>
+      </div>
+    </div>
+  </section>
+</Base>

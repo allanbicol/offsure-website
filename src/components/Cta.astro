@@ -1,0 +1,21 @@
+---
+import { booking } from '../data/site.js';
+const {
+  title = 'Interested in offshoring your business with Offsure?',
+  lead = 'Book a free discovery call. From the basics of offshoring to pricing and growing your team, our specialists will answer your questions.',
+} = Astro.props;
+---
+<section class="cta" data-cta>
+  <svg class="cta__smile" viewBox="0 0 300 330" aria-hidden="true">
+    <path d="M17 0v180a133 133 0 0 0 266 0V0" pathLength="1" />
+    <path d="M150 0v120" pathLength="1" />
+  </svg>
+  <div class="container cta__inner">
+    <h2 class="cta__title" data-split>{title}</h2>
+    <p class="cta__lead">{lead}</p>
+    <div class="cta__actions">
+      <a class="btn" href={booking.australia} target="_blank" rel="noopener">Book a call in Australia</a>
+      <a class="btn" href={booking.usa} target="_blank" rel="noopener">Book a call in the USA</a>
+    </div>
+  </div>
+</section>

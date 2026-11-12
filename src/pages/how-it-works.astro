@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { steps, url } from '../data/site.js';
+
+const details = [
+  'To ensure a smooth hiring process, give us a job description detailing the qualifications, responsibilities and requirements for the position.',
+  'We take pride in our ability to recruit talented professionals who bring a diverse set of skills and experience to the table.',
+  'Your dedicated staff report to you daily, with regular updates on their progress, so your business operations run smoothly.',
+  'Our office operations management lets you focus on your core business activities while we handle the day-to-day administrative tasks that keep your workplace running smoothly.',
+];
+---
+<Base title="How it works" description="How Offsure works: you give us a job description, we recruit, your dedicated staff report to you daily, and we manage the office operations.">
+  <PageHero
+    title="Discovering the Offsure way"
+    lead="Offsure provides dedicated professionals in real estate, property management, accounting, HR, customer support, development and IT."
+  >
+    <a class="btn" href={url('/contact')}>Book a discovery call</a>
+    <a class="link" href={url('/pricing')}>See pricing</a>
+  </PageHero>
+
+  <section class="section">
+    <div class="container split">
+      <h2 data-split>A tailored outsourcing experience</h2>
+      <div class="prose prose--large">
+        <p>It starts with understanding your needs and requirements. That lets us manage your office operations seamlessly while you focus on your core business.</p>
+        <p>With years of experience and a pool of talented individuals, we recruit dedicated professionals who become integral members of your team, reporting daily to help drive your business forward.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section__head">
+        <h2 data-split>Two ways to start</h2>
+        <p class="lead">Either way, the process is the same four steps.</p>
+      </div>
+      <div class="paths">
+        <div class="paths__card">
+          <h3>Hiring a talented professional</h3>
+          <p>One role, filled by someone who fits your job description.</p>
+        </div>
+        <span class="paths__or">or</span>
+        <div class="paths__card">
+          <h3>Building a professional team</h3>
+          <p>Several roles, recruited to work together as your team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <h2 data-split>The four steps</h2>
+      </div>
+      <ol class="flow">
+        {steps.map((step, i) => (
+          <li class="flow__item">
+            <span class="flow__num" aria-hidden="true">{i + 1}</span>
+            <div>
+              <h2>{step.title}</h2>
+              <p>{details[i]}</p>
+            </div>
+            <div class="flow__aside">
+              <h3>{step.advantage}</h3>
+              <p>{step.advantageBody}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</Base>

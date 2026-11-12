@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import wordmark from '../assets/brand/wordmark.png';
+import { nav, url } from '../data/site.js';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href) => path === (url(href).replace(/\/$/, '') || '/');
+---
+<header class="nav" data-nav>
+  <div class="container nav__inner">
+    <a class="nav__logo" href={url('/')} aria-label="Offsure home">
+      <Image src={wordmark} alt="Offsure" width={272} loading="eager" />
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      {nav.map((item) => (
+        <a class="nav__link" href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+      ))}
+      <a class="btn btn--small" href={url('/contact')}>Book a discovery call</a>
+    </nav>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" data-nav-toggle>
+      <span></span><span></span>
+      <b class="visually-hidden">Menu</b>
+    </button>
+    <div class="menu" id="menu">
+      <nav class="menu__links" aria-label="Mobile">
+        {[...nav, { label: 'Contact', href: '/contact' }].map((item, i) => (
+          <a href={url(item.href)} style={`--i:${i}`} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </nav>
+      <div class="menu__foot">
+        <a class="btn" href={url('/contact')}>Book a discovery call</a>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import { booking, contact } from '../data/site.js';
+---
+<Base title="Contact" description="Book a free discovery call with Offsure in Australia or the USA, call us, or send a message." cta={false}>
+  <section class="page-hero">
+    <div class="container contact">
+      <div>
+        <h1 class="page-hero__title" data-split="load">Let's talk about it.</h1>
+        <p class="lead page-hero__lead" data-fade>
+          From the basics of offshoring to pricing to expanding your business and team, our specialists are here to help. Schedule a free discovery call at a time that suits you.
+        </p>
+        <div class="book" data-fade>
+          <a class="book__link" href={booking.australia} target="_blank" rel="noopener">
+            <span><b>Book a call in Australia</b><span>Free discovery call, held online</span></span>
+            <span><time data-live-time="Australia/Brisbane"></time> in Brisbane</span>
+          </a>
+          <a class="book__link" href={booking.usa} target="_blank" rel="noopener">
+            <span><b>Book a call in the USA</b><span>Free discovery call, held online</span></span>
+            <span><time data-live-time="America/New_York"></time> in New York</span>
+          </a>
+        </div>
+        <div class="contact__direct" data-fade>
+          {contact.phones.map((p) => (
+            <p>{p.place}: <a href={`tel:${p.tel}`}>{p.number}</a></p>
+          ))}
+          <p>Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+        </div>
+      </div>
+
+      <form class="form" data-contact-form data-to={contact.email} novalidate data-fade>
+        <h2>Or write to us</h2>
+        <p>Fill this in and one of our business development specialists will get in touch with you.</p>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required />
+            <span class="field__error" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required />
+            <span class="field__error" aria-live="polite"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-company">Company (optional)</label>
+          <input id="f-company" name="company" type="text" autocomplete="organization" />
+          <span class="field__error" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="f-message">What do you need help with?</label>
+          <textarea id="f-message" name="message" required></textarea>
+          <span class="field__error" aria-live="polite"></span>
+        </div>
+        <div class="form__foot">
+          <button class="btn" type="submit">Open in my email app</button>
+          <p data-form-status aria-live="polite">Your message opens in your email app, addressed to {contact.email}, ready to send.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>

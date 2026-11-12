@@ -1,0 +1,10 @@
+---
+const { title, lead } = Astro.props;
+---
+<section class="page-hero">
+  <div class="container">
+    <h1 class="page-hero__title" data-split="load">{title}</h1>
+    {lead && <p class="lead page-hero__lead" data-fade>{lead}</p>}
+    {Astro.slots.has('default') && <div class="page-hero__actions" data-fade><slot /></div>}
+  </div>
+</section>

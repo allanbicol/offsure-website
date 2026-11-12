@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { values, url } from '../data/site.js';
+---
+<Base title="Talent" description="Finding the right people for your business is the core of what Offsure does. Meet the values our team is built on.">
+  <PageHero
+    title="Build your people. Build your business."
+    lead="Finding the right talent for you is the very core of our business."
+  >
+    <a class="btn" href={url('/contact')}>Book a discovery call</a>
+    <a class="link" href={url('/solutions')}>See the roles we recruit</a>
+  </PageHero>
+
+  <section class="section">
+    <div class="container split">
+      <h2 data-split>Who we look for</h2>
+      <div class="prose prose--large">
+        <p>We take pride in our specialty: finding the right people to fit your business needs.</p>
+        <p>We value team members who are ambitious, engaged and committed to their growth and development. Our company culture is built on a foundation of learning and collaboration, and we welcome those who share these values to join our team.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--deep">
+    <div class="container">
+      <div class="section__head">
+        <h2 data-split>Our core values</h2>
+      </div>
+      <ul class="values">
+        {values.map((v, i) => (
+          <li class:list={['value', i === 0 && 'is-open']} data-value>
+            <h3>
+              <button class="value__head" type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`value-${i}`}>
+                {v.name}
+                <i class="value__icon" aria-hidden="true"></i>
+              </button>
+            </h3>
+            <div class="value__body" id={`value-${i}`}><p>{v.body}</p></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container band">
+      <h2>Want to join the team yourself?</h2>
+      <div class="band__actions">
+        <a class="btn btn--outline" href={url('/careers')}>See careers at Offsure</a>
+      </div>
+    </div>
+  </section>
+</Base>
